@@ -2,17 +2,17 @@ package com.desafios.exercicioVetor.entities;
 
 import java.util.Arrays;
 
-public class MyArray {
+public class MyArrayType3 {
     private static final Object[] EMPTY_DATA = new Object[0];
     private int size;
     Object[] elementData;
     private int index = 0;
 
-    public MyArray(){
+    public MyArrayType3(){
         this.elementData = EMPTY_DATA;
         this.size = 0;
     }
-    public MyArray(int initialCapacity) throws IllegalAccessException {
+    public MyArrayType3(int initialCapacity) throws IllegalAccessException {
         if(initialCapacity > 0){
             this.elementData = new Object[initialCapacity];
             this.size = initialCapacity;
@@ -32,19 +32,31 @@ public class MyArray {
         if(this.size == 0){
             this.size++;
             this.elementData = new Object[this.size];
-            this.elementData[index] = value;
+            this.elementData[this.index] = value;
             this.index++;
         }
         else{
-            this.size = this.size * 2;
-            this.elementData = Arrays.copyOf(this.elementData, this.size);
-            this.elementData[index] = value;
+            if(this.index == this.size){
+                this.size = (int) this.size + (this.size /  2);
+                this.elementData = Arrays.copyOf(this.elementData, this.size);
+                this.elementData[this.index] = value;
+                this.index++;
+            }
+            else{
+                this.elementData[this.index] = value;
+                this.index++;
+            }
+
         }
     }
 
     public void removeElementByIndex(int indexOf){
         if(indexOf <= this.index && indexOf >= 0){
-            this.elementData[indexOf] = null;
+            for(int i = indexOf; i < this.index; i++ ){
+                this.elementData[i] = this.elementData[i + 1];
+            }
+            this.index--;
+
         }
         else{
             throw new IllegalArgumentException("Index out of range!");
@@ -52,10 +64,23 @@ public class MyArray {
     }
 
     public void getAllElements(){
-        System.out.println("[");
-        for (Object o: this.elementData) {
-            System.out.println(o + ",");
+        System.out.println(toString());
+        ;
+    }
+
+    public void getElementeByIndex(int indexOf){
+        if(indexOf < this.size){
+            System.out.println(this.elementData[indexOf]);
         }
-        System.out.println("]");
+        else{
+            System.out.println("Index out of range!");
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "MyArrayType2{" +
+                "elementData=" + Arrays.toString(elementData) +
+                '}';
     }
 }

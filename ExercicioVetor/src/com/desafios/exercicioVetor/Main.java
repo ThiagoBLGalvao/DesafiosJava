@@ -1,9 +1,13 @@
 package com.desafios.exercicioVetor;
 
 
-import com.desafios.exercicioVetor.entities.MyArray;
+import com.desafios.exercicioVetor.entities.MyArrayType1;
+
 
 public class Main {
-    MyArray array = new MyArray();
+    public static void main(String[] args) {
+        MyArrayType1 array = new MyArrayType1();
 
+
+    }
 }
