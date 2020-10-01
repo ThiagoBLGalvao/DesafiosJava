@@ -1,33 +1,20 @@
 package com.desafios.exercicioVetor.entities;
 
+import com.desafios.exercicioVetor.abstracted.MyArrayAbs;
+
 import java.util.Arrays;
 
-public class MyArrayType3 {
-    private static final Object[] EMPTY_DATA = new Object[0];
-    private int size;
-    Object[] elementData;
-    private int index = 0;
+public class MyArrayType3 extends MyArrayAbs {
+    private static final int LIMIT = 15;
 
     public MyArrayType3(){
-        this.elementData = EMPTY_DATA;
-        this.size = 0;
+        super();
     }
     public MyArrayType3(int initialCapacity) throws IllegalAccessException {
-        if(initialCapacity > 0){
-            this.elementData = new Object[initialCapacity];
-            this.size = initialCapacity;
-        }
-        else{
-            if(initialCapacity != 0){
-                throw new IllegalAccessException("This initial capacity: " + initialCapacity + "is illegal ");
-            }
-            else{
-                this.elementData = EMPTY_DATA;
-                this.size = initialCapacity;
-            }
-        }
+        super(initialCapacity);
     }
 
+    @Override
     public void addValue(int value){
         if(this.size == 0){
             this.size++;
@@ -37,8 +24,7 @@ public class MyArrayType3 {
         }
         else{
             if(this.index == this.size){
-                this.size = (int) this.size + (this.size /  2);
-                this.elementData = Arrays.copyOf(this.elementData, this.size);
+                verifySpace();
                 this.elementData[this.index] = value;
                 this.index++;
             }
@@ -50,36 +36,38 @@ public class MyArrayType3 {
         }
     }
 
-    public void removeElementByIndex(int indexOf){
-        if(indexOf <= this.index && indexOf >= 0){
-            for(int i = indexOf; i < this.index; i++ ){
-                this.elementData[i] = this.elementData[i + 1];
+    private void verifySpace(){
+        if(this.size * 2 <= LIMIT){
+            growSpaceTwoTimes();
+        }else{
+            if(this.size + 1 <= LIMIT){
+                growSpaceByOne();
             }
-            this.index--;
-
-        }
-        else{
-            throw new IllegalArgumentException("Index out of range!");
+            else{
+                throw new OutOfMemoryError("Out of memory!!");
+            }
         }
     }
+
+    private void growSpaceByOne(){
+        this.size++;
+        this.elementData = Arrays.copyOf(this.elementData, this.size);
+    }
+
+    private void growSpaceTwoTimes(){
+        this.size = this.size *  2;
+        this.elementData = Arrays.copyOf(this.elementData, this.size);
+    }
+
+
 
     public void getAllElements(){
         System.out.println(toString());
-        ;
-    }
-
-    public void getElementeByIndex(int indexOf){
-        if(indexOf < this.size){
-            System.out.println(this.elementData[indexOf]);
-        }
-        else{
-            System.out.println("Index out of range!");
-        }
     }
 
     @Override
     public String toString() {
-        return "MyArrayType2{" +
+        return "MyArrayType3{" +
                 "elementData=" + Arrays.toString(elementData) +
                 '}';
     }

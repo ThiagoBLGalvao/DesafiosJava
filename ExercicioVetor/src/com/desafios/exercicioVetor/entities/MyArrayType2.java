@@ -1,33 +1,17 @@
 package com.desafios.exercicioVetor.entities;
 
+import com.desafios.exercicioVetor.abstracted.MyArrayAbs;
+
 import java.util.Arrays;
 
-public class MyArrayType2 {
-    private static final Object[] EMPTY_DATA = new Object[0];
-    private int size;
-    Object[] elementData;
-    private int index = 0;
+public class MyArrayType2 extends MyArrayAbs {
 
-    public MyArrayType2(){
-        this.elementData = EMPTY_DATA;
-        this.size = 0;
-    }
     public MyArrayType2(int initialCapacity) throws IllegalAccessException {
-        if(initialCapacity > 0){
-            this.elementData = new Object[initialCapacity];
-            this.size = initialCapacity;
-        }
-        else{
-            if(initialCapacity != 0){
-                throw new IllegalAccessException("This initial capacity: " + initialCapacity + "is illegal ");
-            }
-            else{
-                this.elementData = EMPTY_DATA;
-                this.size = initialCapacity;
-            }
-        }
+            super(initialCapacity);
+
     }
 
+    @Override
     public void addValue(int value){
         if(this.size == 0){
             this.size++;
@@ -37,7 +21,7 @@ public class MyArrayType2 {
         }
         else{
             if(this.index == this.size){
-                this.size = (int) this.size + (this.size /  2);
+                this.size = (int) (this.size + (this.size * 0.5));
                 this.elementData = Arrays.copyOf(this.elementData, this.size);
                 this.elementData[this.index] = value;
                 this.index++;
@@ -50,6 +34,7 @@ public class MyArrayType2 {
         }
     }
 
+    @Override
     public void removeElementByIndex(int indexOf){
         if(indexOf <= this.index && indexOf >= 0){
             for(int i = indexOf; i < this.index; i++ ){
@@ -63,19 +48,13 @@ public class MyArrayType2 {
         }
     }
 
+    @Override
     public void getAllElements(){
         System.out.println(toString());
         ;
     }
 
-    public void getElementeByIndex(int indexOf){
-        if(indexOf < this.size){
-            System.out.println(this.elementData[indexOf]);
-        }
-        else{
-            System.out.println("Index out of range!");
-        }
-    }
+
 
     @Override
     public String toString() {

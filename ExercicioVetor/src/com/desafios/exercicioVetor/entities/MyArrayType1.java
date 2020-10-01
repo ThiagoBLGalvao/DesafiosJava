@@ -1,33 +1,21 @@
 package com.desafios.exercicioVetor.entities;
 
+import com.desafios.exercicioVetor.abstracted.MyArrayAbs;
+
 import java.util.Arrays;
 
-public class MyArrayType1 {
-    private static final Object[] EMPTY_DATA = new Object[0];
-    private int size;
-    Object[] elementData;
-    private int index = 0;
+public class MyArrayType1 extends MyArrayAbs {
+
 
     public MyArrayType1(){
-        this.elementData = EMPTY_DATA;
-        this.size = 0;
-    }
-    public MyArrayType1(int initialCapacity) throws IllegalAccessException {
-        if(initialCapacity > 0){
-            this.elementData = new Object[initialCapacity];
-            this.size = initialCapacity;
-        }
-        else{
-            if(initialCapacity != 0){
-                throw new IllegalAccessException("This initial capacity: " + initialCapacity + "is illegal ");
-            }
-            else{
-                this.elementData = EMPTY_DATA;
-                this.size = initialCapacity;
-            }
-        }
+        super();
     }
 
+    public MyArrayType1(int initialCapacity) throws IllegalAccessException {
+        super(initialCapacity);
+    }
+
+    @Override
     public void addValue(int value){
         if(this.size == 0){
             this.size++;
@@ -50,31 +38,10 @@ public class MyArrayType1 {
         }
     }
 
-    public void removeElementByIndex(int indexOf){
-        if(indexOf <= this.index && indexOf >= 0){
-            for(int i = indexOf; i < this.index; i++ ){
-                this.elementData[i] = this.elementData[i + 1];
-            }
-            this.index--;
 
-        }
-        else{
-            throw new IllegalArgumentException("Index out of range!");
-        }
-    }
-
+    @Override
     public void getAllElements(){
         System.out.println(toString());
-        ;
-    }
-
-    public void getElementeByIndex(int indexOf){
-        if(indexOf < this.size){
-            System.out.println(this.elementData[indexOf]);
-        }
-        else{
-            System.out.println("Index out of range!");
-        }
     }
 
     @Override
